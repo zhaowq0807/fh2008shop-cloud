@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+    <link rel="icon" href="../js/shop/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/pages-JD-index.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/widget-jquery.autocomplete.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/widget-cartPanelView.css" />
+    <title>登录页面</title>
+</head>
+<body>
+
+<form enctype="multipart/form-data" action="http://localhost:8083/api/alipay/page">
+    <button type="submit">电脑确认支付</button>
+</form>
+<form enctype="multipart/form-data" action=server_url+"/alipay/wap" method="post">
+    <button type="submit">手机确认支付</button>
+</form>
+
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript" src="../js/shop/js/pages/index.js"></script>
+<script>
+</script>
+</body>
+</html>

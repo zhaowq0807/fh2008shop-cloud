@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.shop.api.cart.mapper.ISkuMapper">
+
+    <select id="findSkuList" resultType="com.fh.shop.api.goods.po.Sku">
+        select sku.id,sku.skuName,sku.price,sku.image FROM t_sku sku left join t_spu spu on sku.spuId = spu.id
+         where spu.sellWell = 1 and spu.isRecommend = 1 and  spu.onSale = 1
+    </select>
+</mapper>

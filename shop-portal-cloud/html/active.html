@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>错误页面</title>
+</head>
+<body>
+<h1 style="color: green">用户未激活,请<a href="#" onclick="sendActiveMail();">发送激活</a>后,登录</h1>
+<h1 style="color: #018002">用户未激活,请<a href="#" onclick="sendActiveMail2();">发送激活</a>后,登录</h1>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript" src="../js/shop/js/pages/index.js"></script>
+<script>
+    function sendActiveMail() {
+        var v_memberData = $.cookie("memberData");
+        $.post({
+            url:server_url+"/member/sendActiveMail",
+            //如何将JSON对象,转为JSON格式的字符串
+            contentType:"application/json",
+            data:v_memberData,
+            success:function (res) {
+                if(res.code == 200){
+                    //发送邮件成功了
+                    $.removeCookie("memberData");
+                    location.href="mailsuccess.html";
+                }
+            }
+        })
+    }
+    function sendActiveMail2() {
+        var v_memberData = $.cookie("memberData");
+        //如何将JSON格式的字符串,转为JSON对象
+        var v_param = eval('('+v_memberData+')');
+        console.log(v_memberData);
+        $.post({
+            url:server_url+"/member/sendActiveMail2",
+            data:v_param,
+            success:function (res) {
+                if(res.code == 200){
+                    //发送邮件成功了
+                    $.removeCookie("memberData");
+                    location.href="mailsuccess.html";
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

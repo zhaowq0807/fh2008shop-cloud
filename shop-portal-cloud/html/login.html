@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+    <link rel="icon" href="../js/shop/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/pages-JD-index.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/widget-jquery.autocomplete.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/widget-cartPanelView.css" />
+    <title>登录页面</title>
+</head>
+<body>
+
+<div class="container" style="text-align: center;">
+    <div class="row">
+        <div class="col-md-12" >
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">登录名:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="memberName" placeholder="请输入登录名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">密码:</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-primary" onclick="login()">提交</button>
+                    <button type="reset" class="btn btn-default">重置</button>
+                    <button type="button" class="btn btn-link" onclick="javascript:location.href='forgetPassword.html'">忘记密码</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript" src="../js/shop/js/pages/index.js"></script>
+<script>
+    function login() {
+        var v_param = {};
+        v_param.memberName = $("#memberName").val();
+        v_param.password = $("#password").val();
+        //console.log(v_param);
+        $.post({
+            url:"http://localhost:9000/member/api"+"/member/login",
+            data:v_param,
+            success:function (res) {
+                if(res.code == 200){
+                    var v_token = res.data;
+                    //将服务端响应给客户端的信息存入到回话cookie
+                    $.cookie(TOKEN,v_token);
+                    console.log(res);
+                    //跳转到首页
+                    location.href="index.html";
+                }else if(res.code == 6019){
+                    console.log(res);
+                    $.cookie("memberData",JSON.stringify(res.data));
+                    //跳转页面
+                    location.href="active.html";
+                }else if(res.code == 6101){
+                    alert(res.msg);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
